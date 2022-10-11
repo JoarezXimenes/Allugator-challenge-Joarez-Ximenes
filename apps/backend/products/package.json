@@ -10,6 +10,7 @@
     "test:coverage": "nyc npm run test",
     "prestart": "npm run build && npm run db:reset",
     "start": "node .",
+    "predev": "npm run build && npm run db:reset",
     "dev": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/server.ts"
   },
   "keywords": [],
@@ -20,7 +21,8 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.25.0"
+    "sequelize": "^6.25.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
