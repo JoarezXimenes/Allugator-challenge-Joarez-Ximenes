@@ -1,4 +1,4 @@
-import * as express from 'express'
+import * as express from 'express';
 
 class App {
   public app: express.Express;
@@ -8,7 +8,6 @@ class App {
 
     this.config();
 
-    // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
