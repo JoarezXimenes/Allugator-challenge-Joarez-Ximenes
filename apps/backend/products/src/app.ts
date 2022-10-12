@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { router } from './routes';
 
 class App {
   public app: express.Express;
@@ -9,6 +10,7 @@ class App {
     this.config();
 
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use(router)
   }
 
   private config():void {
