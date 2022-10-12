@@ -18,7 +18,7 @@ services:
 #Serviço products
   products:
     container_name: products
-    build: .apps//backend/products
+    build: ./apps/backend/products
     ports:
       - 4001:4001
     platform: linux/x86_64

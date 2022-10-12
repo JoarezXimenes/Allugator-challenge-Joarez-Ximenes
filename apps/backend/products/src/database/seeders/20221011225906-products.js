@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -24,11 +24,11 @@ module.exports = {
         price: 2499.99,
         image: 'https://a-static.mlcdn.com.br/1500x1500/tablet-samsung-galaxy-tab-s7-fe-124-4g-wi-fi-128gb-android-cam-8mp-selfie-5mp/magazineluiza/230608700/825c7d70626aaedb75dd7fc5d93f749f.jpg',
         description: 'Aproveite a elegância do Galaxy Tab S7 FE em suas mãos. A estrutura única e simples do design tem aparência sofisticada com espaço mínimo de câmera na parte posterior, e o formato fino garante conforto durante o uso.'
-      },
-    ], {});
+      }
+    ], {})
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('users', null, {})
   }
-};
+}
