@@ -14,12 +14,11 @@ export class ProductsRepository implements IProductsRepository {
       }
     });
 
-    if (!products) throw new Error('Server error')
-
     return products as unknown as Product[];
   }
-  getProductById(): Promise<Product> {
-    throw new Error("Method not implemented.");
+  async getProductById(id: string): Promise<Product> {
+    const product = await this.productsModel.findByPk(id);
+
+    return product as unknown as Product;
   }
-  
 }
