@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 
 export class Signature {
@@ -14,7 +14,7 @@ export class Signature {
     this._id = this.verifyId(props.id)
   }
   verifyId(id:string | undefined): string{
-    if (!id) return uuid();
+    if (!id) return v4();
     return id;
   }
 
