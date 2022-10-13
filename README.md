@@ -5,6 +5,7 @@ Projeto de um website com feito com microsserviços, no backend procurei usar um
 
 <details>
   <summary><strong>Tecnologias utilizadas no backend</strong></summary><br />
+  ( backend ainda em produção, faltando apenas alguns detalhes )
   
   - Express
   - JWT(implementado ainda de forma simples, se der tempo até o fim da semana implemento o KeyCloak)
@@ -12,6 +13,8 @@ Projeto de um website com feito com microsserviços, no backend procurei usar um
   possa consumilas depois, caso fique fora do ar por um tempo.
   - uuid, IDs gerados diretamente no backend, não dependendo do banco de dados.
   - testes feitos com mocha, chai e sinon
+  
+  backend ainda em produção, faltando apenas alguns detalhes
 
  
 </details>
