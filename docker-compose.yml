@@ -11,7 +11,7 @@ services:
       - "9092:9092"
     environment:
       # KAFKAJS_NO_PARTITIONER_WARNING: 1
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "checkout:1:1,payment-request:1:1,payment-response:1:1"
     volumes:
@@ -80,6 +80,5 @@ services:
     platform: linux/x86_64
     working_dir: /app-backend
     depends_on:
-      products_db:
-        condition: service_healthy
+      - kafka
     restart: 'always'

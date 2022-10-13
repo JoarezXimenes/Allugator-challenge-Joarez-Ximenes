@@ -7,7 +7,7 @@ import { Checkout } from '../entities/Checkout';
 
 const kafka = new Kafka({
   clientId: 'checkout',
-  brokers: [`localhost:9092`],
+  brokers: [`kafka:9092`],
 })
 
 export class Messenger implements IMessenger {
