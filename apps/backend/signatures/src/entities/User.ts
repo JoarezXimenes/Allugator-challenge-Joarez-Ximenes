@@ -1,11 +1,5 @@
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
-export interface IUser {
-  id?: string;
-  userName: string;
-  email: string;
-  password: string;
-}
 
 export class User {
   private _id: string;
@@ -13,14 +7,14 @@ export class User {
   private _email: string;
   private _password: string;
 
-  constructor(props: IUser) {
+  constructor(props: { email: string, userName: string, password:string, id?: string }) {
     this._email = props.email
     this._userName = props.userName
     this._password = props.password
     this._id = this.verifyId(props.id)
   }
   verifyId(id:string | undefined): string{
-    if (!id) return uuid();
+    if (!id) return v4();
     return id;
   }
 

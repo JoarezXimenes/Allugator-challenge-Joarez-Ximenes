@@ -1,4 +1,4 @@
-import { IUser, User } from "../../entities/User";
+import { User } from "../../entities/User";
 import { Users } from "../../database/models/Users";
 import { IUsersRepository } from "../IUsersRepository";
 
@@ -7,26 +7,29 @@ export class UsersRepository implements IUsersRepository {
     private usersModel = Users
   ){}
 
-  async findByEmail(email: string): Promise<IUser | null> {
+  async findByEmail(email: string): Promise<User | null> {
     const user = await this.usersModel.findOne({
       where:{
         email
-      }
+      },
+      raw: true
     });
+    
     if (!user) return null;
 
     return user as unknown as User;
   }
   async createUser(user: User): Promise<User> {
     const { id, userName, email, password } = user;
-    const createdUser = await this.usersModel.build({ id, userName, email, password });
-    await createdUser.save();
-    return createdUser as unknown as User;
+    await this.usersModel.create({ id, userName, email, password });
+    
+    
+    return { id, userName, email, password } as User;
   }
-  async findById(id: string): Promise<IUser | null> {
+  async findById(id: string): Promise<User | null> {
     const user = await this.usersModel.findByPk(id);
 
-    return user as unknown as IUser;
+    return user as unknown as User;
   }
 
 }

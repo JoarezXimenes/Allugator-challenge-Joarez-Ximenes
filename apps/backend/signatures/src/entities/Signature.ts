@@ -1,11 +1,5 @@
 import { uuid } from "uuidv4";
 
-export interface ISignature {
-  id?: string;
-  userId: string;
-  productId: string;
-  active?: boolean;
-}
 
 export class Signature {
   private _id: string;
@@ -13,7 +7,7 @@ export class Signature {
   private _productId: string;
   private _active: boolean;
 
-  constructor(props: ISignature) {
+  constructor(props: {productId: string, userId: string, id?: string}) {
     this._productId = props.productId
     this._userId = props.userId
     this._active = false;
