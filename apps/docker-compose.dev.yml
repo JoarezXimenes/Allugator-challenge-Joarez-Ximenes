@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+########## Serviços para funcionamento do kafka #########
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:2.11-1.1.0
+    ports:
+      - "9092:9092"
+    environment:
+      # KAFKAJS_NO_PARTITIONER_WARNING: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "checkout:1:1,payment-request:1:1,payment-response:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+#Banco de dados do serviço products
+  products_db:
+    image: mysql:8.0.21
+    container_name: products_db
+    platform: linux/x86_64
+    ports:
+      - 3002:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
+#Banco de dados do serviço products
+  services_db:
+    image: mysql:8.0.21
+    container_name: services_db
+    platform: linux/x86_64
+    ports:
+      - 3003:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    restart: 'always'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores

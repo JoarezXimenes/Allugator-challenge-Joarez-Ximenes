@@ -1,0 +1,36 @@
+{
+  "name": "allugator-challenge-joarez-ximenes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install:checkout": "(cd apps && cd backend && cd checkout && npm install)",
+    "install:products": "(cd apps && cd backend && cd products && npm install)",
+    "install:payment": "(cd apps && cd backend && cd payment-api && npm install)",
+    "install:signatures": "(cd apps && cd backend && cd signatures && npm install)",
+    "install:front": "(cd apps && cd frontend && npm install)",
+    "install:all": "(npm run install:checkout && install:products && install:payment && install:signatures && install:front)",
+    "start:checkout": "(cd apps && cd backend && cd checkout && npm start)",
+    "start:products": "(cd apps && cd backend && cd products && npm start)",
+    "start:payment": "(cd apps && cd backend && cd payment-api && npm start)",
+    "start:signatures": "(cd apps && cd backend && cd signatures && npm start)",
+    "start:front": "(cd apps && cd frontend && npm start)",
+    "start:all": "(npm run start:checkout && start:products && start:payment && start:signatures && start:front)",
+    "compose:db": "(cd apps && docker-compose -f docker-compose.dev.yml up -d --build)",
+    "compose:db:down": "(cd apps && docker-compose -f docker-compose.dev.yml down --remove-orphans)",
+    "compose:up": "docker-compose up -d --build",
+    "compose:down": "docker-compose down --remove-orphans"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoarezXimenes/Allugator-challenge-Joarez-Ximenes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoarezXimenes/Allugator-challenge-Joarez-Ximenes/issues"
+  },
+  "homepage": "https://github.com/JoarezXimenes/Allugator-challenge-Joarez-Ximenes#readme"
+}
