@@ -15,7 +15,7 @@ export class CreateCheckoutController {
       const { productId } = req.body;
       const { id: userId } = (req as jwtRequest).userData;
       
-    
+
       const product = await this.createChekoutUseCase.execute(productId);
       const { id, productName, price, image, description } = product
       const productObject = { id, productName, price, image, description };

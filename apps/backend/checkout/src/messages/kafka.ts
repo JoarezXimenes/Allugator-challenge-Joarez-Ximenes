@@ -12,7 +12,7 @@ const kafka = new Kafka({
 
 export class Messenger implements IMessenger {
   async sendMessage(checkout: Checkout): Promise<boolean> {
-    const { userId,  } = checkout;
+    const { userId } = checkout;
     const { id, productName, price, image, description } = checkout.product;
     const checkoutObject = {
       userId,
