@@ -15,13 +15,13 @@ export class UsersRepository implements IUsersRepository {
     });
     if (!user) return null;
 
-    return user as unknown as IUser;
+    return user as unknown as User;
   }
-  async createUser(user: User): Promise<IUser> {
+  async createUser(user: User): Promise<User> {
     const { id, userName, email, password } = user;
     const createdUser = await this.usersModel.build({ id, userName, email, password });
     await createdUser.save();
-    return createdUser as unknown as IUser;
+    return createdUser as unknown as User;
   }
   async findById(id: string): Promise<IUser | null> {
     const user = await this.usersModel.findByPk(id);
