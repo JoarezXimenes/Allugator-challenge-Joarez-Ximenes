@@ -1,13 +1,13 @@
 import { Kafka } from 'kafkajs';
-// import 'dotenv/config';
+import 'dotenv/config';
 import { IMessenger } from './IMessenger';
 import { Checkout } from '../entities/Checkout';
 
-// const KAFKA_HOST = process.env.KAFKA_HOST;
+const KAFKA_HOST = process.env.KAFKA_HOST;
 
 const kafka = new Kafka({
   clientId: 'checkout',
-  brokers: [`kafka:9092`],
+  brokers: [`${KAFKA_HOST}:9092`],
 })
 
 export class Messenger implements IMessenger {

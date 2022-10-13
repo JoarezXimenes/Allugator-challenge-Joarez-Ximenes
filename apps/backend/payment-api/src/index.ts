@@ -1,13 +1,15 @@
 import { Kafka } from 'kafkajs';
-
+import 'dotenv/config';
 // Este serviço serve apenas para demonstrar o uso do kafka com microservices
 // então digamos que o cliente fez a assinatura de uma produto
 // depois fez aquele PIX e pagamento confirmado =D
 // então essa API de pagamentos envia outra mensagem para o services, para confirmar a assinatura
 // 
 
+const KAFKA_HOST = process.env.KAFKA_HOST;
+
 const kafka = new Kafka({
-  brokers: ['kafka:9092'],
+  brokers: [`${KAFKA_HOST}:9092`],
   clientId: 'payment-response',
 })
 
