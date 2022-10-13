@@ -1,5 +1,6 @@
 import { Kafka } from 'kafkajs';
 import 'dotenv/config';
+import { updateteSignature } from '../use-cases/update-signature';
 // Este serviço serve apenas para demonstrar o uso do kafka com microservices
 // então digamos que o cliente fez a assinatura de uma produto
 // depois fez aquele PIX e pagamento confirmado =D
@@ -10,23 +11,15 @@ const KAFKA_HOST = process.env.KAFKA_HOST;
 
 const kafka = new Kafka({
   brokers: [`${KAFKA_HOST}:9092`],
-  clientId: 'payment-response',
+  clientId: 'payment-request',
 })
 
-async function send(checkoutJSON: string) {
-  const producer = kafka.producer();
-  await producer.connect();
-  await producer.send({
-    topic: 'payment-response',
-    messages: [{ value: checkoutJSON }]
-  })
-}
 
-async function listen() {
-  const consumer = kafka.consumer({ groupId: 'payment-response', allowAutoTopicCreation: true })
+async function listenPaymentResponse() {
+  const consumer = kafka.consumer({ groupId: 'payment-request', allowAutoTopicCreation: true })
 
   await consumer.connect()
-  await consumer.subscribe({ topic: 'payment-request' })
+  await consumer.subscribe({ topic: 'payment-response' })
 
   await consumer.run({
     eachMessage: async ({ message }) => {
@@ -35,12 +28,15 @@ async function listen() {
       if (!checkoutJSON) {
         return;
       }
-
-      send(checkoutJSON)
+      const signature = JSON.parse(checkoutJSON)
+      const { signatureId } = signature;
+      await updateteSignature.updateSignature(signatureId)
     },
   })
 }
 
-listen().then(() => {
-  console.log('Listening to payment-request')
-})
+export { listenPaymentResponse }
+
+// listenPaymentResponse().then(() => {
+//   console.log('Listening to Kafka messages')
+// })

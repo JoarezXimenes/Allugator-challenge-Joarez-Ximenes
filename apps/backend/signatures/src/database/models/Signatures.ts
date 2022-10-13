@@ -37,7 +37,7 @@ Signatures.init({
   timestamps: false,
 });
 
-Users.hasMany(Signatures, { foreignKey: 'userId', as: 'UserId' });
-Products.belongsTo(Signatures, { foreignKey: 'productId', as: 'productId' })
+Users.hasMany(Signatures, { foreignKey: 'userId', as: 'user' });
+Products.belongsTo(Signatures, { foreignKey: 'productId', as: 'product' })
 
 export { Signatures };

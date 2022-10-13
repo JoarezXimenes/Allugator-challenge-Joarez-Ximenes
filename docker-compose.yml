@@ -101,7 +101,8 @@ services:
       - DB_USER=root
       - DB_PASS=123456
       - DB_HOST=signatures_db
-      - DB_PORT=33060
+      - DB_PORT=3306
+      - KAFKA_HOST=localhost
     restart: 'always'
     healthcheck: 
       test: ["CMD", "lsof", "-t", "-i:4004"]
@@ -113,7 +114,7 @@ services:
     container_name: signatures_db
     platform: linux/x86_64
     ports:
-      - 3002:3306
+      - 3003:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'

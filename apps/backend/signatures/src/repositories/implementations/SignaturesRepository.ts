@@ -1,5 +1,5 @@
 import { Signatures } from "../../database/models/Signatures";
-import { Signature, ISignature } from "../../entities/Signature";
+import { Signature } from "../../entities/Signature";
 import { ISignaturesRepository } from "../ISignaturesRepository";
 
 export class SignaturesRepository implements ISignaturesRepository {
@@ -18,7 +18,7 @@ export class SignaturesRepository implements ISignaturesRepository {
       }
     })
   }
-  async getActiveSignatures(userId: string): Promise<ISignature[]> {
+  async getActiveSignatures(userId: string): Promise<Signature[]> {
     const signatures = await this.signaturesModel.findAll({
       where: {
         userId,
@@ -28,7 +28,7 @@ export class SignaturesRepository implements ISignaturesRepository {
 
     if (!signatures) return [];
     
-    return signatures as unknown as ISignature[];
+    return signatures as unknown as Signature[];
   }
 
 }
