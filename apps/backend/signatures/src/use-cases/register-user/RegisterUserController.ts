@@ -7,8 +7,15 @@ export class RegisterUserController {
   ){}
 
   async handle(req: Request, res: Response): Promise<Response>{
-    const { userName, email, password } = req.body;
-    const token = this.registerUserUseCase.execute({userName, email, password});
-    return res.status(201).json({token});
+    try {
+      const { userName, email, password } = req.body;
+      const token = await this.registerUserUseCase.execute({userName, email, password});
+      return res.status(201).json({token});
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(401).json({message: err.message || 'Server error'})
+      }
+      return res.status(401).json({message: 'Server error'});
+    }
   }
 }
