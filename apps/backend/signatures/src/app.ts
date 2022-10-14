@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { loginRouter } from './routes/loginRouter';
 import { registerUserRouter } from './routes/registerUserRouter';
+import { signaturesRouter } from './routes/signaturesRouter';
 
 class App {
   public app: express.Express;
@@ -13,6 +14,7 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use(registerUserRouter);
     this.app.use(loginRouter);
+    this.app.use(signaturesRouter);
   }
 
   private config():void {

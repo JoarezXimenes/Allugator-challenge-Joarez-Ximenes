@@ -11,7 +11,7 @@ services:
       - "9092:9092"
     environment:
       # KAFKAJS_NO_PARTITIONER_WARNING: 1
-      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "checkout:1:1,payment-request:1:1,payment-response:1:1"
     volumes:
@@ -41,20 +41,20 @@ services:
       retries: 5
 #Banco de dados do serviço products
   products_db:
-    image: mysql:8.0.21
+    image: mysql
     container_name: products_db
-    platform: linux/x86_64
     ports:
       - 3002:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost']
       timeout: 10s
       retries: 5
     cap_add:
       - SYS_NICE # Deve omitir alertas menores
+#["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD' ]
 #Serviço checkout
   checkout:
     container_name: checkout
@@ -67,7 +67,7 @@ services:
       - JWT_SECRET=jwt_secret
       - APP_PORT=4002
       - PRODUCT_API_URL=http://localhost:4001
-      - KAFKA_HOST=kafka
+      - KAFKA_HOST=localhost
     restart: 'always'
     healthcheck: 
       test: ["CMD", "lsof", "-t", "-i:4002"]
@@ -82,7 +82,7 @@ services:
     depends_on:
       - kafka
     environment:
-      - KAFKA_HOST=kafka
+      - KAFKA_HOST=localhost
     restart: 'always'
 #Serviço products
   signatures:
@@ -110,16 +110,15 @@ services:
       retries: 5
 #Banco de dados do serviço signatures
   signatures_db:
-    image: mysql:8.0.21
+    image: mysql
     container_name: signatures_db
-    platform: linux/x86_64
     ports:
       - 3003:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost']
       timeout: 10s
       retries: 5
     cap_add:
