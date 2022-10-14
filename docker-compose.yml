@@ -127,3 +127,17 @@ services:
       retries: 10
     cap_add:
       - SYS_NICE # Deve omitir alertas menores
+  gateway:
+    container_name: gateway
+    build: ./apps/backend/gateway
+    ports:
+      - 4000:4000
+    platform: linux/x86_64
+    working_dir: /app-backend
+    environment:
+      - APP_PORT=4000
+    restart: 'always'
+    healthcheck: 
+      test: ["CMD", "lsof", "-t", "-i:4004"]
+      timeout: 10s
+      retries: 5
