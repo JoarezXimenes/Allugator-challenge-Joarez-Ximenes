@@ -9,7 +9,7 @@ export class GetSignaturesController {
 
   async handle(req: Request, res: Response) {
     try {
-      const { id } = (req as jwtRequest).userData;
+      const { id } = req.body;
 
       const signatures = await this.getSignaturesUseCase.execute(id);
   
