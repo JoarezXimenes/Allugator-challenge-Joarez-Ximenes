@@ -13,6 +13,7 @@ export class CreateSignature {
   async createSignature(checkout: Checkout) {
     const { userId } = checkout;
     const { id, productName, price, image, description } = checkout.product;
+    
 
     const productExists = await this.productsRepository.getProductById(id);
     if (!productExists) {
@@ -20,6 +21,7 @@ export class CreateSignature {
       await this.productsRepository.saveProduct(product);
     }
     const signature = new Signature({productId: id, userId})
+    
     await this.signaturesRepository.createSignature(signature);
 
     return (signature.id)

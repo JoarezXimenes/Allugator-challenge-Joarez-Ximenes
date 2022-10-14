@@ -8,11 +8,13 @@ export class ProductsRepository implements IProductsRepository{
   ){}
 
   async getProductById(id: string): Promise<IProduct | null> {
+
     const product = await this.productsModel.findByPk(id);
     
     return product as unknown as IProduct;
   }
   async saveProduct(product: Product): Promise<void> {
+    
     const {id, productName, price, description, image} = product;
     await this.productsModel.create({id, productName, price, description, image})
   }

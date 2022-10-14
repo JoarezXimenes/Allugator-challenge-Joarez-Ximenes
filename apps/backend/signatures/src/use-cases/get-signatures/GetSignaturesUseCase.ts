@@ -6,6 +6,7 @@ export class GetSignaturesUseCase{
   ) {}
 
   async execute(userId: string) {
+    
     const signatures = await this.signaturesRepository.getActiveSignatures(userId);
 
     return signatures;

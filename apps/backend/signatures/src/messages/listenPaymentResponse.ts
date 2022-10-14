@@ -16,7 +16,7 @@ const kafka = new Kafka({
 
 
 async function listenPaymentResponse() {
-  const consumer = kafka.consumer({ groupId: 'payment-request', allowAutoTopicCreation: true })
+  const consumer = kafka.consumer({ groupId: 'payment-response', allowAutoTopicCreation: true })
 
   await consumer.connect()
   await consumer.subscribe({ topic: 'payment-response' })
@@ -29,11 +29,10 @@ async function listenPaymentResponse() {
         return;
       }
 
-      console.log(checkoutJSON);
       const signature = JSON.parse(checkoutJSON)
-      console.log(signature);
       
       const { signatureId } = signature;
+      
       await updateteSignature.updateSignature(signatureId)
     },
   })

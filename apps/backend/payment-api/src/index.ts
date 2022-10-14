@@ -24,7 +24,7 @@ async function send(checkoutJSON: string) {
 }
 
 async function listen() {
-  const consumer = kafka.consumer({ groupId: 'payment-response', allowAutoTopicCreation: true })
+  const consumer = kafka.consumer({ groupId: 'payment-api', allowAutoTopicCreation: true })
 
   await consumer.connect()
   await consumer.subscribe({ topic: 'payment-request' })

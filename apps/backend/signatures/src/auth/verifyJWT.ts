@@ -17,10 +17,8 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
   if (!authorization) return res.status(401).json({ message: 'Token not found' });
   try {
     const decodedToken = jwt.verify(authorization as string, JWT_SECRET);
-    console.log(decodedToken);
     
     req.body = {...req.body, ...decodedToken as Data};
-    console.log(req.body);
     
     next();
   } catch (error) {

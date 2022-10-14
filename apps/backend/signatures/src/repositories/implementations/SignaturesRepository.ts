@@ -21,9 +21,9 @@ export class SignaturesRepository implements ISignaturesRepository {
   async getActiveSignatures(userId: string): Promise<Signature[]> {
     const signatures = await this.signaturesModel.findAll({
       where: {
-        userId,
+        userId: userId,
         active: true,
-      }
+      },
     });
 
     if (!signatures) return [];

@@ -15,19 +15,18 @@ const kafka = new Kafka({
   clientId: 'payment-request',
 })
 
-async function send(checkoutJSON: object) {
+async function send(signatureId: object) {
   const producer = kafka.producer();
   await producer.connect();
-  console.log(checkoutJSON);
   
   await producer.send({
     topic: 'payment-request',
-    messages: [{ value: JSON.stringify(checkoutJSON) }]
+    messages: [{ value: JSON.stringify(signatureId) }]
   })
 }
 
 async function listenCheckout() {
-  const consumer = kafka.consumer({ groupId: 'payment-request', allowAutoTopicCreation: true })
+  const consumer = kafka.consumer({ groupId: 'signature', allowAutoTopicCreation: true })
 
   await consumer.connect()
   await consumer.subscribe({ topic: 'checkout' })
@@ -39,16 +38,13 @@ async function listenCheckout() {
       if (!checkoutJSON) {
         return;
       }
-      console.log(JSON.parse(checkoutJSON));
       
       const parsedCheckout = JSON.parse(checkoutJSON);
       const { userId } = parsedCheckout;
       const { id, productName, price, image, description } = parsedCheckout.product;
       const checkout = new Checkout(userId, { id, productName, price, image, description })
-      console.log(checkout);
       
       const signatureId = await createSignature.createSignature(checkout);
-      console.log(signatureId);
       
       send({
         signatureId: signatureId

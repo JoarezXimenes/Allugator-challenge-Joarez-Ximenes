@@ -31,12 +31,24 @@ Signatures.init({
   }
 }, {
   sequelize: db,
-  modelName: 'users',
+  modelName: 'signatures',
   underscored: true,
   timestamps: false,
 });
 
-Users.hasMany(Signatures, { foreignKey: 'userId', as: 'user' });
-Products.belongsTo(Signatures, { foreignKey: 'productId', as: 'product' })
+Products.belongsToMany(Users, {
+  as: 'users',
+  through: Signatures,
+  foreignKey: 'productId',
+  otherKey: 'userId'
+});
+
+Users.belongsToMany(Products, {
+  as: 'products',
+  through: Signatures,
+  foreignKey: 'userId',
+  otherKey: 'productId'
+})
+
 
 export { Signatures };

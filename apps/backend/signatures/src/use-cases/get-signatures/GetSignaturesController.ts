@@ -7,13 +7,13 @@ export class GetSignaturesController {
     private getSignaturesUseCase: GetSignaturesUseCase
   ) {}
 
-  async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response): Promise<Response> {
     try {
-      const { id } = req.body;
+      const { id } = req.body; 
 
       const signatures = await this.getSignaturesUseCase.execute(id);
   
-      return signatures
+      return res.status(200).json(signatures);
     } catch (err) {
       if (err instanceof Error) {
         return res.status(401).json({message: err.message || 'Server error'})
