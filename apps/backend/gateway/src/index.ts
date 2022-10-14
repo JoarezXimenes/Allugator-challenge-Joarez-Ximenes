@@ -2,6 +2,8 @@ import express from "express";
 import httpProxy from 'express-http-proxy';
 import 'dotenv/config'
 import { createProxyMiddleware } from "http-proxy-middleware";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDoc from './swagger.json'
 
 
 const app = express();
@@ -12,9 +14,7 @@ const PORT = process.env.APP_PORT || 4000;
 // const signaturesApi = httpProxy("http://localhost:4004");
 // const checkoutApi = httpProxy("http://localhost:4002");
 
-app.get("/", (req, res) => {
-  return res.json({message: "ok"})
-})
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.use(
   '/product/:id',
