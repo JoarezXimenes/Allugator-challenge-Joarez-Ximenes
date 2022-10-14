@@ -31,21 +31,10 @@ Projeto de um website com feito com microsserviços, no backend procurei usar um
 <summary><strong>Como iniciar o projeto localmente na sua máquina</strong></summary><br />
 
 
-1️⃣ **Primeira opção**
   - Dependencias: Docker, Docker-compose e npm.
   - 1- Clonar o repositório no seu computador.
   - 2- Entrar na pasta raiz do projeto e executar o comando "npm install" no terminal.
   - 3- Executar o comando "npm run compose:up". Agora só esperar uns minutinhos e pronto :).
   - Para parar os containers basta executar o comando "npm run compose:down".
-
-2️⃣ **Segunda Opção**
-  - Dependencias: Docker, Docker-compose e npm.
-  - 1- Clonar o repositório no seu computador.
-  - 2- Entrar na pasta raiz do projeto e executar o comando "npm install" no terminal.
-  - 3- Executar o comando "npm run install:all" no terminal.
-  - 4- Executar o comando "npm run compose:db" no terminal, este comando iniciará somente os containers com bancos de dados e containers para funcionamento do kafka.
-  - 5- Entrar em cada pasta dentro de apps (checkout, payment-api, products, signatures, frontend) e mudar o nome do arquivo ".env.example" para ".env"
-  - 6- Executar o comando "npm run start:all". esse comando iniciará cada serviço localmente na sua máquina
-  - Para parar os containers basta executar o comando "npm run compose:db:down".
 
 </details>
