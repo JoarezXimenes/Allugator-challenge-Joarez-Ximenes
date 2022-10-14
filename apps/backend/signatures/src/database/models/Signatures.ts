@@ -5,10 +5,9 @@ import { Products } from './Products'
 
 class Signatures extends Model {
   id: string;
-  username: string;
-  role: string;
-  email: string;
-  password: string;
+  userId: string;
+  productId: string;
+  active: boolean;
 }
 
 Signatures.init({

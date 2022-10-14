@@ -9,6 +9,8 @@ services:
     image: wurstmeister/kafka:2.11-1.1.0
     ports:
       - "9092:9092"
+    depends_on:
+      - zookeeper
     environment:
       # KAFKAJS_NO_PARTITIONER_WARNING: 1
       KAFKA_ADVERTISED_HOST_NAME: kafka
@@ -67,7 +69,7 @@ services:
     environment:
       - JWT_SECRET=jwt_secret
       - APP_PORT=4002
-      - PRODUCT_API_URL=http://localhost:4001
+      - PRODUCT_API_URL=http://products:4001
       - KAFKA_HOST=kafka
     restart: 'always'
     healthcheck: 

@@ -3,10 +3,10 @@ import db from '.';
 
 class Products extends Model {
   id: string;
-  username: string;
-  role: string;
-  email: string;
-  password: string;
+  productName: string;
+  price: number;
+  image: string;
+  description: string;
 }
 
 Products.init({

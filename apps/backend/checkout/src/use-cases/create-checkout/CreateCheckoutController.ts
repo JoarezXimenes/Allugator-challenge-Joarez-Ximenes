@@ -12,14 +12,11 @@ export class CreateCheckoutController {
 
   async handle(req: Request, res: Response) {
     try {
-      const { productId } = req.body;
-      const { id: userId } = (req as jwtRequest).userData;
+      const { productId, id } = req.body;
       
 
       const product = await this.createChekoutUseCase.execute(productId);
-      const { id, productName, price, image, description } = product
-      const productObject = { id, productName, price, image, description };
-      const checkout = new Checkout(userId , productObject)
+      const checkout = new Checkout(id , product)
 
       await this.messenger.sendMessage(checkout)
 

@@ -18,6 +18,8 @@ const kafka = new Kafka({
 async function send(checkoutJSON: object) {
   const producer = kafka.producer();
   await producer.connect();
+  console.log(checkoutJSON);
+  
   await producer.send({
     topic: 'payment-request',
     messages: [{ value: JSON.stringify(checkoutJSON) }]
@@ -37,11 +39,17 @@ async function listenCheckout() {
       if (!checkoutJSON) {
         return;
       }
+      console.log(JSON.parse(checkoutJSON));
+      
       const parsedCheckout = JSON.parse(checkoutJSON);
       const { userId } = parsedCheckout;
       const { id, productName, price, image, description } = parsedCheckout.product;
       const checkout = new Checkout(userId, { id, productName, price, image, description })
+      console.log(checkout);
+      
       const signatureId = await createSignature.createSignature(checkout);
+      console.log(signatureId);
+      
       send({
         signatureId: signatureId
       })

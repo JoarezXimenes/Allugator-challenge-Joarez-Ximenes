@@ -16,6 +16,7 @@ const kafka = new Kafka({
 async function send(checkoutJSON: string) {
   const producer = kafka.producer();
   await producer.connect();
+  console.log(checkoutJSON);
   await producer.send({
     topic: 'payment-response',
     messages: [{ value: checkoutJSON }]
@@ -35,7 +36,8 @@ async function listen() {
       if (!checkoutJSON) {
         return;
       }
-
+      console.log(checkoutJSON);
+      
       send(checkoutJSON)
     },
   })

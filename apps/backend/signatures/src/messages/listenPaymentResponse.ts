@@ -28,7 +28,11 @@ async function listenPaymentResponse() {
       if (!checkoutJSON) {
         return;
       }
+
+      console.log(checkoutJSON);
       const signature = JSON.parse(checkoutJSON)
+      console.log(signature);
+      
       const { signatureId } = signature;
       await updateteSignature.updateSignature(signatureId)
     },

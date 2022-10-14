@@ -20,6 +20,8 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
     console.log(decodedToken);
     
     req.body = {...req.body, ...decodedToken as Data};
+    console.log(req.body);
+    
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Token must be a valid token' });

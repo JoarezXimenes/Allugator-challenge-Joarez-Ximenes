@@ -18,6 +18,7 @@ export class Messenger implements IMessenger {
       userId,
       product: { id, productName, price, image, description }
     }
+    
     const producer = kafka.producer();
     await producer.connect();
     await producer.send({
