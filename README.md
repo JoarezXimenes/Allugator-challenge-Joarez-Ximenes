@@ -33,10 +33,24 @@ Projeto de um website com feito com microsserviços, no backend procurei usar um
 
 <details>
   <summary><strong>Documentação</strong></summary><br />
+      <details>
+        <summary><strong>Endpoints</strong></summary><br />
+  
+  - http://localhost:4000/products : retorna uma lista com os produtos disponiveis.
+  - http://localhost:4000/product/:id : retorna um objeto com os detalhes de um produto.
+  - http://localhost:4000/register : resgistra um usuario recebendo uma requisição com o body { email, password, userName } e retorna um token JWT.
+  - http://localhost:4000/login : recebe uma requisição com o body { email, password } e retorna um token JWT.
+  - http://localhost:4000/checkout: recebe uma requisição com o body: { productId } e um header { Authorization: (token JWT recebido no login) } e retorna uma resposta confirmando se o pedido foi efetuado com sucesso.
+  - http://localhost:4000/signatures: recebe uma requisição com um header { Authorization: (token JWT recebido no login) } e retorna todas as assinaturas do usuário que estão com o status de ativo.
+</details>
   
   - Após iniciar a aplicação na sua máquina, a documentação pode ser encontrada em http://localhost:4000/api-docs
-
- 
+  Este projeto possui 4 serviços:
+  - Products: responsavel pro guardar e fornecer todas as informações sobre os produtos.
+  - Signatures: responsavel por ouvir o serviço de checkout e criar as assinaturas, enviar uma raquisição para a API de pagamentos e atualizalar a assinatura para ativa após a confirmação do pagamento recebida da payments-api pelo kafka.
+  - Checkout : responsavel por confirmar as informações do produto e usuário e enviar uma mensagem pelo kafka para o serviços de signatures.
+  - Payments-api: responsavel por receber os pedidos de pagamento e enviar uma confirmação para signatures.
+       
 </details>
 
 
