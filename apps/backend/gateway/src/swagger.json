@@ -18,7 +18,7 @@
     "/products": {
       "get": {
         "summary": "Produtos disponiveis",
-        "description": "Essa rota retorna uma lista com os produtos disponiveis",
+        "description": "Retorna uma lista com os produtos disponiveis",
         "tags": ["Products"],
         "responses": {
           "200: ": {
@@ -40,13 +40,199 @@
     "/product/:id": {
       "get": {
         "summary": "Detalhes do produto",
-        "description": "Essa rota retorna um objeto com todos os detalhes de um produto",
-        "tags": ["Products"]
+        "description": "Retorna um objeto com todos os detalhes de um produto",
+        "tags": ["Products"],
+        "responses": {
+          "200: ": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/product"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Registrar um usuário",
+        "description": "Registra um novo usuário e retorna um token JWT",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201: ": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/token"
+                }
+              }
+            }
+          },
+          "400: ": {
+            "description": "BadRequest",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "description": "Faz o login de usuário e retorna um token JWT",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200: ": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/token"
+                }
+              }
+            }
+          },
+          "401: ": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/checkout": {
+      "post": {
+        "summary": "Fazer pedido de um produto",
+        "description": "Registra um novo pedido e retorna uma mensagem confirmando o pedido",
+        "tags": ["Signatures"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checkout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200: ": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/confirmCheckout"
+                }
+              }
+            }
+          },
+          "401: ": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signatures": {
+      "get": {
+        "summary": "Assinaturas ativas do usuário",
+        "description": "Retorna uma lista com todas as assinaturas ativas do usuário",
+        "tags": ["Signatures"],
+        "responses": {
+          "200: ": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/signature"
+                  }
+                }
+              }
+            }
+          },
+          "401: ": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "product": {
+        "type":"object",
+        "properties": {
+          "id":{
+            "type": "string"
+          },
+          "productName":{ 
+            "type":"string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "image": {
+            "type":"string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
       "products": {
         "type":"object",
         "properties": {
@@ -61,6 +247,80 @@
           },
           "image": {
             "type":"string"
+          }
+        }
+      },
+      "signature": {
+        "type":"object",
+        "properties": {
+          "id":{
+            "type": "string"
+          },
+          "userId":{ 
+            "type":"string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "active": {
+            "type":"boolean"
+          }
+        }
+      },
+      "register": {
+        "type":"object",
+        "properties": {
+          "email":{
+            "type": "string"
+          },
+          "userName":{ 
+            "type":"string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "login": {
+        "type":"object",
+        "properties": {
+          "email":{
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "checkout": {
+        "type":"object",
+        "properties": {
+          "productId":{
+            "type": "string"
+          }
+        }
+      },
+      "unauthorized": {
+        "type":"object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "confirmCheckout": {
+        "type":"object",
+        "properties": {
+          "message":{
+            "type": "string"
+          }
+        }
+      },
+      "token": {
+        "type":"object",
+        "properties": {
+          "token":{
+            "type": "string"
           }
         }
       }
