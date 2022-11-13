@@ -8,7 +8,7 @@ Projeto de um website com feito com microsserviços, no backend procurei usar um
   
   
   - Express
-  - JWT
+  - JWT(implementado ainda de forma simples, se der tempo até o fim da semana implemento o KeyCloak)
   - Kafka, comunicação entre os microsserviços, preservando as menssagens em fila, para que o microsserviço
   possa consumilas depois, caso fique fora do ar por um tempo.
   - uuid, IDs gerados diretamente no backend, não dependendo do banco de dados.
