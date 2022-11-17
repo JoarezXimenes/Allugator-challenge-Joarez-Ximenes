@@ -1,7 +1,7 @@
 # Allugator-challenge-Joarez-Ximenes
 
 **Sobre:**
-Projeto de um website com feito com microsserviços, no backend procurei usar uma arquitetura diferente da que uso geralmente, utilizei Package by feature, onde o projeto é organizado de acordo com as funções. Também tenho projetos feitos com arquitetura em camadas como o Blog-api (https://github.com/JoarezXimenes/Blog-API), utilizei o Kafka como serviço de Mensageria entre os serviços e criei uma simples ApiGateway apenas para integrar os endpoints 
+Projeto de um website com feito com microsserviços, no backend procurei usar uma arquitetura diferente da que uso geralmente, utilizei Package by feature, onde o projeto é organizado de acordo com as funções. Também tenho projetos feitos com arquitetura em camadas como o <a href="https://github.com/JoarezXimenes/Car-shop-API">Car-shop-API</a>, utilizei o Kafka como serviço de Mensageria entre os serviços e criei uma simples ApiGateway apenas para integrar os endpoints 
 
 <details>
   <summary><strong>Tecnologias utilizadas no backend</strong></summary><br />
